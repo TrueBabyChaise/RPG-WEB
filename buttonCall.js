@@ -1,21 +1,24 @@
 attackButton = document.getElementById('attackButton')
 specialButton = document.getElementById('specialButton')
 defenseButton = document.getElementById('defenseButton')
-fleeButton = document.getElementById('fleeButton')
 
 attackButton.onclick = function() {
-	console.log('Attack')
+	document.getElementById("actionList").style.display = "none"
+	entity = getEntityWithId(document.querySelector('#actionList p').id)
+	entityPointed = getSelector().entityPointed
+	entityPointed.removePv(entity.strength)
+	updateP(entityPointed, document.getElementById(entityPointed.id))
+	entity.hasPlay = true
 }
 
 defenseButton.onclick = function() {
-	console.log('Defense')
+	entity = getEntityWithId(document.querySelector('#actionList p').id).isBlocking = true
+	document.getElementById("actionList").style.display = "none"
+	entity.hasPlay = true
 }
 
 specialButton.onclick = function() {
 	console.log('Special')
-}
-
-// USELESS DON'T NEED TO BE IMPLEMENTED
-fleeButton.onclick = function() {
-	updateTurnOrder()
+	document.getElementById("actionList").style.display = "none"
+	entity.hasPlay = true
 }

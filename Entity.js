@@ -1,4 +1,7 @@
 class Entity {
+
+	static id = 0;
+
 	constructor(name, sprite, x, y) {
 		this._pos = {
 			x: x,
@@ -6,6 +9,11 @@ class Entity {
 		}
 		this._name = name
 		this._sprite = sprite
+		this._id = Entity.id++;
+	}
+
+	get id() {
+		return this._id
 	}
 
 	get name() {

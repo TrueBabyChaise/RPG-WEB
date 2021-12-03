@@ -25,5 +25,6 @@ class Selector extends Entity {
 
 	set entityPointed(entityPointed) {
 		this._entityPointed = entityPointed
+		this._pos = entityPointed._pos
 	}
 }
