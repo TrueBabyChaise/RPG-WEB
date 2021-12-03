@@ -1,7 +1,7 @@
 
 html {
 	background-color: black;
-	cursor: url("assets/Robot Warfare Asset Pack 24-11-21/Robot Warfare Asset Pack 22-11-24/UI/mouse-pointer.png"), auto;
+	cursor: url("assets/UI/mouse-pointer.png"), auto;
 }
 
 body {
@@ -18,7 +18,7 @@ body {
     position: absolute;
     width: 100%;
     height: 50%;
-    background-image: url('assets\\FreeSamples\\handpainted_26.png');
+    background-image: url('assets/background/handpainted_26.png');
 	background-repeat: no-repeat;
 	background-size: cover;
 
