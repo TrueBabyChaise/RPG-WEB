@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+		<link rel="stylesheet" href="index.css">
+	</head>
+	<body>
+	<div class="floor"></div>
+	<canvas id="canvas"></canvas>
+	<!-- <article>In this vanilla JavaScript example I use sprite sheet to animate randomised characters created with JavaScript ES6 class. This technique can be used to generate NPCs or enemies for 8 directional isometric (top down) canvas games.<br><br> Image comes from general Google search, used for educational purposes only.<br>
+	</article> -->
+	<div class="hud">
+		<!-- <div class="info"></div> -->
+		<div class="hpList">
+			<div id="hpListHero"></div>
+			<div id="hpListEnemy"></div>
+		</div>
+		<div id="actionList">
+			<input type="button" id="attackButton" value="Attack">
+			<input type="button" id="defenseButton" value="Defense">
+			<input type="button" id="specialButton" value="Attaque Spéciale">
+			<input type="button" id="fleeButton" value="Flee" style="display: none;">
+		</div>
+	<div>
+	<script src="Sprite.js"></script>
+	<script src="Entity.js"></script>
+	<script src="Unit/Unit.js"></script>
+	<script src="Unit/Enemy/Dragon.js"></script>
+	<script src="Unit/Enemy/Rat.js"></script>
+	<script src="Unit/Enemy/Kobold.js"></script>
+	<script src="Unit/Hero/Tank.js"></script>
+	<script src="Unit/Hero/Rogue.js"></script>
+	<script src="Unit/Hero/Cleric.js"></script>
+	<script src="Unit/Hero/Mage.js"></script>
+	<script src="UI/Selector.js"></script>
+	<script src="createEntityFunction.js"></script>
+	<script src="buttonCall.js"></script>
+	<script src="game.js"></script>
+	</body>
+</html>
+	
