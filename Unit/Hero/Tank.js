@@ -8,4 +8,27 @@ class Tank extends Unit {
 	logLine() {
 		console.log("You can count on the Tank ! -", this._name);
 	}
+
+	startDeathAnimation() {
+		this.startHitAnimation()
+		this.isDead = true
+	}
+
+	startHitAnimation() {
+		this.sprite.minframeX = 14
+		this.sprite.maxframeX = 17
+		this.sprite.frameX = 14
+		this.animationCoolDown = (this.sprite.maxframeX - this.sprite.minframeX) * this.sprite._speedAnimation
+	}
+
+	startIdleAnimation() {
+		this.sprite.minframeX = 0
+		this.sprite.maxframeX = 4
+		this.sprite.frameX = 0
+		this.animationCoolDown = Infinity
+	}
+
+	startAttackAnimation() {
+		console.log("Start attack animation for :", this.name)
+	}
 }

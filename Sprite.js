@@ -1,16 +1,18 @@
 class Sprite {
-	constructor(spritePath, maxframeX, maxframeY, spriteWidth, spriteHeigth, speedAnimation, canvasContext, flipY=false, flipX=false) {
+	constructor(spritePath, maxframeX, maxframeY, spriteWidth, spriteHeigth, speedAnimation, canvasContext, flipY=false, flipX=false, scaleX=1, scaleY=1) {
 		this._spritePath = spritePath
 		this._spriteImage = new Image();
 		this._spriteImage.src = this._spritePath
-		this._maxframeX= maxframeX
+		this._maxframeX = maxframeX
 		this._maxframeY = maxframeY
-		this._minframeX= 0
+		this._minframeX = 0
 		this._minframeY = 0
 		this._frameX = 0
+		this._frameY = 0
 		this._flipY = flipY
 		this._flipX = flipX
-		this._frameY = 0
+		this._scaleX = scaleX
+		this._scaleY = scaleY
 		this._spriteWidth = spriteWidth
 		this._spriteHeigth = spriteHeigth
 		this._speedAnimation = speedAnimation
@@ -18,6 +20,22 @@ class Sprite {
 		this._clock = 0
 	}
 	
+	get maxframeX () {
+		return this._maxframeX
+	}
+
+	set maxframeX(value) {
+		this._maxframeX = value
+	}
+
+	get maxframeY () {
+		return this._maxframeY
+	}
+
+	set maxframeY(value) {
+		this._maxframeY = value
+	}
+
 	get minframeX () {
 		return this._minframeX
 	}
@@ -60,7 +78,7 @@ class Sprite {
 			this._spriteWidth * this._frameX, this._spriteHeigth * this._frameY, 
 			this._spriteWidth, this._spriteHeigth,
 			0,0,
-			this._spriteWidth * 4, this._spriteHeigth * 4)
+			this._spriteWidth * this._scaleX, this._spriteHeigth * this._scaleY)
 		this._canvasContext.restore()
 	}
 

@@ -12,7 +12,8 @@ attackButton.onclick = function() {
 }
 
 defenseButton.onclick = function() {
-	entity = getEntityWithId(document.querySelector('#actionList p').id).isBlocking = true
+	entity = getEntityWithId(document.querySelector('#actionList p').id)
+	entity.isBlocking = true
 	document.getElementById("actionList").style.display = "none"
 	entity.hasPlay = true
 }

@@ -1,42 +1,42 @@
 function createTank(x, y, ctx) {
-	const img = "assets/Hero/sheets/DinoSprites - doux.png"
-	const sprite = new Sprite(img, 4, 5, 24, 24, 2, ctx)
+	const img = "assets/Hero/sheets/Doux_96_96.png"
+	const sprite = new Sprite(img, 4, 5, 96, 96, 3, ctx)
 	return new Tank("Blue", sprite , x, y)
 }
 
 function createMage(x, y, ctx) {
-	const img = "assets/Hero/sheets/DinoSprites - mort.png"
-	const sprite = new Sprite(img, 4, 5, 24, 24, 2, ctx)
+	const img = "assets/Hero/sheets/Mort_96_96.png"
+	const sprite = new Sprite(img, 4, 5, 96, 96, 3, ctx)
 	return new Mage("Redish", sprite , x, y)
 }
 
 function createCleric(x, y, ctx) {
-	const img = "assets/Hero/sheets/DinoSprites - tard.png"
-	const sprite = new Sprite(img, 4, 5, 24, 24, 2, ctx)
+	const img = "assets/Hero/sheets/Tard_96_96.png"
+	const sprite = new Sprite(img, 4, 5, 96, 96, 3, ctx)
 	return new Cleric("Pinkie", sprite , x, y)
 }
 
 function createRogue(x, y, ctx) {
-	const img = "assets/Hero/sheets/DinoSprites - vita.png"
-	const sprite = new Sprite(img, 4, 5, 24, 24, 2, ctx)
+	const img = "assets/Hero/sheets/Vita_96_96.png"
+	const sprite = new Sprite(img, 4, 5, 96, 96, 3, ctx)
 	return new Rogue("Orangio", sprite , x, y)
 }
 
 function createRat(x, y, ctx) {
-	const img = "assets/Enemy/nuclearCharacter/character_20x20_brown.png"
-	const sprite = new Sprite(img, 4, 5, 20, 20, 2, ctx, false, true)
+	const img = "assets/Enemy/nuclearCharacter/character_80x80_brown.png"
+	const sprite = new Sprite(img, 4, 5, 80, 80, 3, ctx, false, true)
 	return new Rat("Rat", sprite , x, y)
 }
 
 function createDragon(x, y, ctx) {
-	const img = "assets/Enemy/nuclearCharacter/character_20x20_white.png"
-	const sprite = new Sprite(img, 4, 5, 20, 20, 2, ctx, false, true)
+	const img = "assets/Enemy/nuclearCharacter/character_80x80_white.png"
+	const sprite = new Sprite(img, 4, 5, 80, 80, 3, ctx, false, true)
 	return new Dragon("Dragon", sprite , x, y)
 }
 
 function createKobold(x, y, ctx) {
-	const img = "assets/Enemy/nuclearCharacter/character_20x20_black.png"
-	const sprite = new Sprite(img, 4, 5, 20, 20, 2, ctx, false, true)
+	const img = "assets/Enemy/nuclearCharacter/character_80x80_black.png"
+	const sprite = new Sprite(img, 4, 5, 80, 80, 3, ctx, false, true)
 	return new Kobold("Kobold", sprite , x, y)
 }
 

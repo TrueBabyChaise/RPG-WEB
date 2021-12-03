@@ -20,6 +20,7 @@ class Unit extends Entity {
 		this.hasPlay = false
 		this.isDead = false
 		this.isBlocking = false
+		this.deathCountDown = 0
 	}
 
 	get strength() {
@@ -58,9 +59,10 @@ class Unit extends Entity {
 		if (value < 0 || this.isBlocking)
 			return
 		this._pv = (this._pv - value) <= 0 ? 0 : this._pv - value;
+		this.startHitAnimation()
 		if (this.pv <= 0) {
 			this.startDeathAnimation()
-			this.isDead = true
+			this.isDead
 		}
 	}
 
@@ -72,6 +74,10 @@ class Unit extends Entity {
 
 	startDeathAnimation() {
 		console.log("Start death animation for :", this.name)
+	}
+
+	startHitAnimation() {
+		console.log("Start hit animation for :", this.name)
 	}
 
 	startAttackAnimation() {

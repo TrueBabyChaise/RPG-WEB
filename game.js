@@ -8,34 +8,39 @@ ctx.mozImageSmoothingEnabled = false;
 ctx.imageSmoothingEnabled = false;
 
 function getEntityWithFaction(faction) {
-	return entities.find(e => e.faction == faction)
+	return entities.find(e => e.faction == faction && !e.isDead)
 }
 
 function getFactionMemberWhoCanPlay(faction) {
-	return entities.find(e => e.hasPlay == false && e.faction == faction)
+	return entities.find(e => e.hasPlay == false && e.faction == faction && !e.isDead)
 }
 
 function getAllFactionMember(faction) {
-	return entities.filter(e => e.faction == faction)
+	return entities.filter(e => e.faction == faction && !e.isDead)
 }
 
 function getRandomInt(max) {
 	return Math.floor(Math.random() * max);
 }
 
+turn = 0
+
 function animate() {
 
+	turn++;
 
 	ctx.clearRect(0, 0, canvas.width, canvas.height)
 	entities.forEach(entity => {
-		if (!entity.isDead)
+		if (!entity.isDead || entity.animationCoolDown > 0)
 			entity.draw()
+		entity.animationCoolDown--;
+		if (entity.animationCoolDown <= 0)
+			entity.startIdleAnimation()
 	});
 
-	entities = entities.filter(e => !e.isDead)
+	entities = entities.filter(e => (e.animationCoolDown > 0 && !e.isDead))
 
 	if (!getFactionMemberWhoCanPlay(Faction.Hero)) {
-		console.log("Enemy Turn")
 		tmp = getAllFactionMember(Faction.Hero)
 		enemy = getFactionMemberWhoCanPlay(Faction.Enemy)
 		target = tmp[getRandomInt(tmp.length)]
@@ -79,7 +84,7 @@ window.onload = () => {
 	entities.push(createRat(canvas.width * 0.9, canvas.height * 0.50, ctx))
 	entities.push(createKobold(canvas.width * 0.9, canvas.height * 0.75, ctx))
 
-	entities.push(createSelector(-24, -24, entities[entities.length - 3], ctx))
+	entities.push(createSelector(-8, -8, entities[entities.length - 3], ctx))
 
 	hpListHero = document.getElementById("hpListHero")
 	hpListEnemy = document.getElementById("hpListEnemy")

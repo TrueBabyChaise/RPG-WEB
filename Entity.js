@@ -10,6 +10,7 @@ class Entity {
 		this._name = name
 		this._sprite = sprite
 		this._id = Entity.id++;
+		this.animationCoolDown = Infinity
 	}
 
 	get id() {
