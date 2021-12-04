@@ -1,5 +1,6 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+const popUp = document.getElementById('popUp')
 let entities = [];
 actionListDiv = document.getElementById("actionList")
 
@@ -38,28 +39,82 @@ function animate() {
 			entity.startIdleAnimation()
 	});
 
-	entities = entities.filter(e => (e.animationCoolDown > 0 && !e.isDead))
+	entities = entities.filter(e => (!(e.animationCoolDown == Infinity && e.isDead)))
 
 	if (!getFactionMemberWhoCanPlay(Faction.Hero)) {
 		tmp = getAllFactionMember(Faction.Hero)
 		enemy = getFactionMemberWhoCanPlay(Faction.Enemy)
 		target = tmp[getRandomInt(tmp.length)]
 		target.removePv(enemy.strength)
+		enemy.startAttackAnimation()
 		enemy.hasPlay = true
 		updateP(target, document.getElementById(target.id))
 	}
 
-	if (!getFactionMemberWhoCanPlay(Faction.Hero) && !getFactionMemberWhoCanPlay(Faction.Enemy))
+	if (!getFactionMemberWhoCanPlay(Faction.Hero) && !getFactionMemberWhoCanPlay(Faction.Enemy)) {
+		getAllFactionMember(Faction.Hero).forEach(e => {
+			p = document.getElementById(e.id)
+			p.style.color = null
+		})
 		entities.forEach(entity => {
 			entity.hasPlay = false
 		});
+	}
 
 	selector = getSelector()
 	if (selector.entityPointed.isDead)
 		selector.entityPointed = getEntityWithFaction(Faction.Enemy)
 }
 
+/* canvas.addEventListener('click', function(e) {
+}) */
+
+canvas.addEventListener('mouseleave', function(e) {
+	popUp.style.display = "none"
+})
+
 canvas.addEventListener('click', function(e) {
+	for (let i = 0; i < enemyList.length; i++) {
+		const e = enemyList[i];
+		if (e._pos.x > pos.x && pos.x > e._pos.x - e._sprite._spriteWidth &&
+			e._pos.y < pos.y && pos.y < e._pos.y + e._sprite._spriteHeight) {
+			enemy = e
+			break
+		}
+	}
+	if (getSelector() && enemy)
+		getSelector().entityPointed = enemy
+})
+
+canvas.addEventListener('mousemove', function(e) {
+	popUp.style.position = "absolute"
+	
+	pos = {
+		x: e.pageX,
+		y: e.pageY,
+	}
+
+	enemyList = getAllFactionMember(Faction.Enemy)
+	enemy = undefined
+	for (let i = 0; i < enemyList.length; i++) {
+		const e = enemyList[i];
+		if (e._pos.x > pos.x && pos.x > e._pos.x - e._sprite._spriteWidth &&
+			e._pos.y < pos.y && pos.y < e._pos.y + e._sprite._spriteHeight) {
+			enemy = e
+			break
+		}
+	}
+
+	if (enemy) {
+		popUp.style.display = null
+		popUp.style.marginLeft = pos.x.toString() + "px"
+		popUp.style.marginTop = pos.y.toString() + "px"
+		popUp.style.minHeight = '10%'
+		popUp.style.whiteSpace = "pre-wrap"
+		popUp.textContent = enemy.name + "\n" + "Hp: " + enemy.pv.toString() + "/" + enemy.maxPv.toString() + "\n" + "Mana: " + enemy.mana.toString() + "/" + enemy.maxMana.toString()
+	} else {
+		popUp.style.display = "none"
+	}
 })
 
 function getEntityWithId(id) {
@@ -88,7 +143,7 @@ window.onload = () => {
 
 	hpListHero = document.getElementById("hpListHero")
 	hpListEnemy = document.getElementById("hpListEnemy")
-
+	hpListEnemy.style.display = "none"
 	entities.forEach(e => {
 		if (e.faction == Faction.Hero)
 			hpListHero.appendChild(createPnameHpForEntity(e, hpListClick))
@@ -97,15 +152,20 @@ window.onload = () => {
 	});
 }
 
+function updateStatusHUD(e) {
+	p = document.getElementById(e.id)
+	p.style.color = "rgb(245, 43, 43)";
+}
+
 function updateP(e, p) {
-	p.textContent = e.name + ": " + e.pv + "/" + e.maxPv
+	p.textContent = e.name + ": Hp : " + e.pv + "/" + e.maxPv + "  Mana : " + e.mana + "/" + e.maxMana
 }
 
 function createPnameHpForEntity(e, fnc, p=undefined, ) {
 	if (!p)
 		p = document.createElement('p')
 	p.id = e.id
-	p.textContent = e.name + ": " + e.pv + "/" + e.maxPv
+	p.textContent = e.name + ": Hp : " + e.pv + "/" + e.maxPv + "  Mana : " + e.mana + "/" + e.maxMana
 	p.onclick = fnc 
 	return p
 }
@@ -117,7 +177,7 @@ function getActionEntityId() {
 }
 
 function hpListClick(e) {
-	if (getEntityWithId(e.target.id).hasPlay)
+	if (!getEntityWithId(e.target.id) || getEntityWithId(e.target.id).hasPlay)
 		return
 	actionListDiv = document.getElementById("actionList")
 	actionListDiv.style.display = ""
@@ -129,6 +189,13 @@ function hpListClick(e) {
 }
 
 window.addEventListener('resize', function(){
-    canvas.height = window.innerHeight / 2;
+	for (let i = 0; i < entities.length; i++) {
+		const e = entities[i]
+		console.log(e._pos)
+		e._pos.y = Math.round((e._pos.y * window.innerHeight / 2) / canvas.height)
+		e._pos.x = Math.round((e._pos.x * window.innerWidth) / canvas.width)
+		console.log(e._pos)
+	}
+	canvas.height = window.innerHeight / 2;
     canvas.width = window.innerWidth;
 })

@@ -1,5 +1,5 @@
 class Sprite {
-	constructor(spritePath, maxframeX, maxframeY, spriteWidth, spriteHeigth, speedAnimation, canvasContext, flipY=false, flipX=false, scaleX=1, scaleY=1) {
+	constructor(spritePath, maxframeX, maxframeY, spriteWidth, spriteHeight, speedAnimation, canvasContext, flipY=false, flipX=false, scaleX=1, scaleY=1) {
 		this._spritePath = spritePath
 		this._spriteImage = new Image();
 		this._spriteImage.src = this._spritePath
@@ -14,7 +14,7 @@ class Sprite {
 		this._scaleX = scaleX
 		this._scaleY = scaleY
 		this._spriteWidth = spriteWidth
-		this._spriteHeigth = spriteHeigth
+		this._spriteHeight = spriteHeight
 		this._speedAnimation = speedAnimation
 		this._canvasContext = canvasContext
 		this._clock = 0
@@ -75,10 +75,10 @@ class Sprite {
 		this._canvasContext.translate(x, y)
 		this._canvasContext.scale(this._flipX ? -1 : 1, this._flipY ? -1 : 1);
 		this._canvasContext.drawImage(this._spriteImage, 
-			this._spriteWidth * this._frameX, this._spriteHeigth * this._frameY, 
-			this._spriteWidth, this._spriteHeigth,
+			this._spriteWidth * this._frameX, this._spriteHeight * this._frameY, 
+			this._spriteWidth, this._spriteHeight,
 			0,0,
-			this._spriteWidth * this._scaleX, this._spriteHeigth * this._scaleY)
+			this._spriteWidth * this._scaleX, this._spriteHeight * this._scaleY)
 		this._canvasContext.restore()
 	}
 

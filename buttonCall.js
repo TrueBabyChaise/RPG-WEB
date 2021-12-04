@@ -8,7 +8,9 @@ attackButton.onclick = function() {
 	entityPointed = getSelector().entityPointed
 	entityPointed.removePv(entity.strength)
 	updateP(entityPointed, document.getElementById(entityPointed.id))
+	entity.startAttackAnimation()
 	entity.hasPlay = true
+	updateStatusHUD(entity)
 }
 
 defenseButton.onclick = function() {

@@ -53,6 +53,23 @@ body {
 }
 
 
+#popUp {
+	background-color: rgb(42, 42, 224);
+
+	border: 1px;
+	border-color: white;
+	border-width: medium;
+	border-style: solid;
+	border-radius: 6%;
+	justify-content: center;
+	display: flex;
+	color: aliceblue;
+	text-align: center;
+  	text-decoration: none;
+	font-family: fantasy;
+	font-size: 16px;
+}
+
 #hpListEnemy, #hpListHero, #actionList {
 
 	background-color: rgb(42, 42, 224);
@@ -103,9 +120,6 @@ body {
 #hpListEnemy p:active, #hpListHero p:active, #actionList input[type=button]:active {
 	color: rgb(245, 43, 43);
 }
-
-
-
 
 #info {
 	display: flex;

@@ -12,10 +12,12 @@ class Faction {
 class Unit extends Entity {
 	constructor(name, sprite, x, y) {
 		super(name, sprite, x, y)
-		this._strength = 10
+		this._strength = 25
 		this._defense = 0
 		this._pv = 100
 		this._maxPv = this._pv
+		this._mana = 100
+		this._maxMana = this._mana
 		this.faction = Faction.Neutral
 		this.hasPlay = false
 		this.isDead = false
@@ -55,15 +57,31 @@ class Unit extends Entity {
 		this._maxPv = value
 	}
 
+	get mana() {
+		return this._mana
+	}
+
+	set mana(value) {
+		this._mana = value
+	}
+
+	get maxMana() {
+		return this._maxMana
+	}
+
+	set maxMana(value) {
+		this._maxMana = value
+	}
+
 	removePv(value) {
 		if (value < 0 || this.isBlocking)
 			return
 		this._pv = (this._pv - value) <= 0 ? 0 : this._pv - value;
-		this.startHitAnimation()
 		if (this.pv <= 0) {
 			this.startDeathAnimation()
-			this.isDead
-		}
+			this.isDead = true
+		} else
+			this.startHitAnimation()
 	}
 
 	addPv(value) {

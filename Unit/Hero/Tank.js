@@ -11,7 +11,6 @@ class Tank extends Unit {
 
 	startDeathAnimation() {
 		this.startHitAnimation()
-		this.isDead = true
 	}
 
 	startHitAnimation() {
@@ -21,14 +20,18 @@ class Tank extends Unit {
 		this.animationCoolDown = (this.sprite.maxframeX - this.sprite.minframeX) * this.sprite._speedAnimation
 	}
 
+	startAttackAnimation() {
+		this.sprite.minframeX = 18
+		this.sprite.maxframeX = 25
+		this.sprite.frameX = 18
+		this.animationCoolDown = (this.sprite.maxframeX - this.sprite.minframeX) * this.sprite._speedAnimation
+		console.log("Start attack animation for :", this.name)
+	}
+
 	startIdleAnimation() {
 		this.sprite.minframeX = 0
 		this.sprite.maxframeX = 4
 		this.sprite.frameX = 0
 		this.animationCoolDown = Infinity
-	}
-
-	startAttackAnimation() {
-		console.log("Start attack animation for :", this.name)
 	}
 }

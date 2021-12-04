@@ -11,7 +11,6 @@ class Rogue extends Unit {
 	
 	startDeathAnimation() {
 		this.startHitAnimation()
-		this.isDead = true
 	}
 
 	startHitAnimation() {
@@ -19,6 +18,14 @@ class Rogue extends Unit {
 		this.sprite.maxframeX = 17
 		this.sprite.frameX = 14
 		this.animationCoolDown = (this.sprite.maxframeX - this.sprite.minframeX) * this.sprite._speedAnimation
+	}
+
+	startAttackAnimation() {
+		this.sprite.minframeX = 18
+		this.sprite.maxframeX = 25
+		this.sprite.frameX = 18
+		this.animationCoolDown = (this.sprite.maxframeX - this.sprite.minframeX) * this.sprite._speedAnimation
+		console.log("Start attack animation for :", this.name)
 	}
 
 	startIdleAnimation() {
