@@ -20,8 +20,18 @@ function getAllFactionMember(faction) {
 	return entities.filter(e => e.faction == faction && !e.isDead)
 }
 
-function getRandomInt(max) {
-	return Math.floor(Math.random() * max);
+function getLowestHpFactionMember(faction) {
+	tmp = getAllFactionMember(faction)
+	min = Infinity
+	entity = undefined
+	for (let i = 0; i < tmp.length; i++) {
+		const e = tmp[i];
+		if (e.pv < min) {
+			min = e.pv
+			entity = e
+		}
+	}
+	return entity
 }
 
 turn = 0
@@ -155,17 +165,19 @@ window.onload = () => {
 function updateStatusHUD(e) {
 	p = document.getElementById(e.id)
 	p.style.color = "rgb(245, 43, 43)";
+	updateP(e, p)
 }
 
 function updateP(e, p) {
-	p.textContent = e.name + ": Hp : " + e.pv + "/" + e.maxPv + "  Mana : " + e.mana + "/" + e.maxMana
+	console.log(e)
+	p.textContent = '(' + e.constructor.name + ') ' + e.name + ": Hp : " + e.pv + "/" + e.maxPv + "  Mana : " + e.mana + "/" + e.maxMana
 }
 
 function createPnameHpForEntity(e, fnc, p=undefined, ) {
 	if (!p)
 		p = document.createElement('p')
 	p.id = e.id
-	p.textContent = e.name + ": Hp : " + e.pv + "/" + e.maxPv + "  Mana : " + e.mana + "/" + e.maxMana
+	p.textContent = '(' + e.constructor.name + ') ' + e.name + ": Hp : " + e.pv + "/" + e.maxPv + "  Mana : " + e.mana + "/" + e.maxMana
 	p.onclick = fnc 
 	return p
 }
@@ -177,15 +189,19 @@ function getActionEntityId() {
 }
 
 function hpListClick(e) {
-	if (!getEntityWithId(e.target.id) || getEntityWithId(e.target.id).hasPlay)
+	entity = getEntityWithId(e.target.id)
+	if (!entity || entity.hasPlay)
 		return
 	actionListDiv = document.getElementById("actionList")
+	Object.keys(Move).forEach(move => { if (move != 'None') document.getElementById(uncapitalize(move) + "Button").style.color = ""})
+	if (entity.lastMove != Move.None)
+		document.getElementById(entity.lastMove.name + "Button").style.color = "rgb(245, 43, 43)";
 	actionListDiv.style.display = ""
 	p = document.querySelector("#actionList p")
 	if (!p)
-		actionListDiv.appendChild(createPnameHpForEntity(getEntityWithId(e.target.id)))
+		actionListDiv.appendChild(createPnameHpForEntity(entity))
 	else
-		createPnameHpForEntity(getEntityWithId(e.target.id), false, p)
+		createPnameHpForEntity(entity, false, p)
 }
 
 window.addEventListener('resize', function(){

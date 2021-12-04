@@ -1,27 +1,46 @@
 attackButton = document.getElementById('attackButton')
-specialButton = document.getElementById('specialButton')
+specialAttackButton = document.getElementById('specialAttackButton')
 defenseButton = document.getElementById('defenseButton')
 
+
 attackButton.onclick = function() {
-	document.getElementById("actionList").style.display = "none"
 	entity = getEntityWithId(document.querySelector('#actionList p').id)
+	if (entity.lastMove == Move.Attack)
+		return
 	entityPointed = getSelector().entityPointed
 	entityPointed.removePv(entity.strength)
 	updateP(entityPointed, document.getElementById(entityPointed.id))
 	entity.startAttackAnimation()
-	entity.hasPlay = true
 	updateStatusHUD(entity)
+	entity.lastMove = Move.Attack
+	entity.hasPlay = true
+	document.getElementById("actionList").style.display = "none"
 }
 
 defenseButton.onclick = function() {
 	entity = getEntityWithId(document.querySelector('#actionList p').id)
+	if (entity.lastMove == Move.Defense)
+		return
 	entity.isBlocking = true
-	document.getElementById("actionList").style.display = "none"
+	updateStatusHUD(entity)
+	entity.lastMove = Move.Defense
 	entity.hasPlay = true
+	document.getElementById("actionList").style.display = "none"
 }
 
-specialButton.onclick = function() {
-	console.log('Special')
-	document.getElementById("actionList").style.display = "none"
+specialAttackButton.onclick = function() {
+	entity = getEntityWithId(document.querySelector('#actionList p').id)
+	if (entity.lastMove == Move.SpecialAttack)
+		return
+	entityPointed = getSelector().entityPointed
+	if (entity instanceof Cleric)
+		entity.specialAttack(getLowestHpFactionMember(entity.faction))
+	else
+		entity.specialAttack(entityPointed)
+	entity.startAttackAnimation()
+	updateP(entityPointed, document.getElementById(entityPointed.id))
+	updateStatusHUD(entity)
+	entity.lastMove = Move.SpecialAttack
 	entity.hasPlay = true
+	document.getElementById("actionList").style.display = "none"
 }

@@ -13,6 +13,16 @@ class Tank extends Unit {
 		this.startHitAnimation()
 	}
 
+	specialAttack(enemy) {
+		if (this.mana >= 15) {
+			enemy.removePv(5)
+			enemy.hasPlay = true
+			this.mana -= 15
+			return true
+		}
+		return false
+	}
+
 	startHitAnimation() {
 		this.sprite.minframeX = 14
 		this.sprite.maxframeX = 17
@@ -25,7 +35,6 @@ class Tank extends Unit {
 		this.sprite.maxframeX = 25
 		this.sprite.frameX = 18
 		this.animationCoolDown = (this.sprite.maxframeX - this.sprite.minframeX) * this.sprite._speedAnimation
-		console.log("Start attack animation for :", this.name)
 	}
 
 	startIdleAnimation() {

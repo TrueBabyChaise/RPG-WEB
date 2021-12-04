@@ -8,7 +8,20 @@ class Rogue extends Unit {
 	logLine() {
 		console.log("I'm a Rogue ! -", this._name);
 	}
-	
+
+	specialAttack(enemy) {
+		if (this.mana >= 5) {
+			var value = getRandomInt(100)
+			if (value == 0)
+				enemy.removePv(enemy.maxPv)
+			if (value == 99)
+				this.removePv(this.maxPv)
+			this.mana -= 5
+			return true
+		}
+		return false
+	}
+
 	startDeathAnimation() {
 		this.startHitAnimation()
 	}
@@ -25,7 +38,6 @@ class Rogue extends Unit {
 		this.sprite.maxframeX = 25
 		this.sprite.frameX = 18
 		this.animationCoolDown = (this.sprite.maxframeX - this.sprite.minframeX) * this.sprite._speedAnimation
-		console.log("Start attack animation for :", this.name)
 	}
 
 	startIdleAnimation() {

@@ -13,6 +13,15 @@ class Mage extends Unit {
 		this.startHitAnimation()
 	}
 
+	specialAttack(enemy) {
+		if (this.mana >= 30) {
+			enemy.removePv(50)
+			this.mana -= 30
+			return true
+		}
+		return false
+	}
+
 	startHitAnimation() {
 		this.sprite.minframeX = 14
 		this.sprite.maxframeX = 17
@@ -25,7 +34,6 @@ class Mage extends Unit {
 		this.sprite.maxframeX = 25
 		this.sprite.frameX = 18
 		this.animationCoolDown = (this.sprite.maxframeX - this.sprite.minframeX) * this.sprite._speedAnimation
-		console.log("Start attack animation for :", this.name)
 	}
 
 	startIdleAnimation() {

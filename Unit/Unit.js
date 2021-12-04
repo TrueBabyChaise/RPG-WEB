@@ -9,6 +9,19 @@ class Faction {
 	}
 }
 
+class Move {
+	// Create new instances of the same class as static attributes
+	static None = new Move("none")
+	static Attack = new Move("attack")
+	static Defense = new Move("defense")
+	static SpecialAttack = new Move("specialAttack")
+
+	constructor(name) {
+		this.name = name
+	}
+}
+
+
 class Unit extends Entity {
 	constructor(name, sprite, x, y) {
 		super(name, sprite, x, y)
@@ -23,6 +36,7 @@ class Unit extends Entity {
 		this.isDead = false
 		this.isBlocking = false
 		this.deathCountDown = 0
+		this.lastMove = Move.None
 	}
 
 	get strength() {

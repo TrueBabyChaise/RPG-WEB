@@ -9,6 +9,15 @@ class Cleric extends Unit {
 		console.log("I'm the medic ! -", this._name);
 	}
 
+	specialAttack(ally) {
+		if (this.mana >= 25) {
+			ally.addPv(25)
+			this.mana -= 25
+			return true
+		}
+		return false
+	}
+
 	startDeathAnimation() {
 		this.startHitAnimation()
 	}
@@ -25,7 +34,6 @@ class Cleric extends Unit {
 		this.sprite.maxframeX = 25
 		this.sprite.frameX = 18
 		this.animationCoolDown = (this.sprite.maxframeX - this.sprite.minframeX) * this.sprite._speedAnimation
-		console.log("Start attack animation for :", this.name)
 	}
 
 	startIdleAnimation() {
