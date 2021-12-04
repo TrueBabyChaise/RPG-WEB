@@ -191,6 +191,8 @@ function hpListClick(e) {
 window.addEventListener('resize', function(){
 	for (let i = 0; i < entities.length; i++) {
 		const e = entities[i]
+		if (e instanceof Selector)
+			continue
 		console.log(e._pos)
 		e._pos.y = Math.round((e._pos.y * window.innerHeight / 2) / canvas.height)
 		e._pos.x = Math.round((e._pos.x * window.innerWidth) / canvas.width)
