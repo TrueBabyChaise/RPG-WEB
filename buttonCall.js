@@ -2,12 +2,11 @@ attackButton = document.getElementById('attackButton')
 specialAttackButton = document.getElementById('specialAttackButton')
 defenseButton = document.getElementById('defenseButton')
 
-
 attackButton.onclick = function() {
-	entity = getEntityWithId(document.querySelector('#actionList p').id)
+	let entity = Game.getEntityWithId(document.querySelector('#actionList p').id)
 	if (entity.lastMove == Move.Attack)
 		return
-	entityPointed = getSelector().entityPointed
+	let entityPointed = Game.getSelector().entityPointed
 	entityPointed.removePv(entity.strength)
 	updateP(entityPointed, document.getElementById(entityPointed.id))
 	entity.startAttackAnimation()
@@ -18,7 +17,7 @@ attackButton.onclick = function() {
 }
 
 defenseButton.onclick = function() {
-	entity = getEntityWithId(document.querySelector('#actionList p').id)
+	let entity = Game.getEntityWithId(document.querySelector('#actionList p').id)
 	if (entity.lastMove == Move.Defense)
 		return
 	entity.isBlocking = true
@@ -29,13 +28,16 @@ defenseButton.onclick = function() {
 }
 
 specialAttackButton.onclick = function() {
-	entity = getEntityWithId(document.querySelector('#actionList p').id)
+	let entity = Game.getEntityWithId(document.querySelector('#actionList p').id)
 	if (entity.lastMove == Move.SpecialAttack)
 		return
-	entityPointed = getSelector().entityPointed
-	if (entity instanceof Cleric)
-		entity.specialAttack(getLowestHpFactionMember(entity.faction))
-	else
+	let entityPointed = Game.getSelector().entityPointed
+	if (entity instanceof Cleric) {
+		let ally = Game.getLowestHpFactionMember(entity.faction)
+		if (!entity.specialAttack(Game.getLowestHpFactionMember(entity.faction)))
+			return
+		updateStatusHUD(ally)
+	} else
 		entity.specialAttack(entityPointed)
 	entity.startAttackAnimation()
 	updateP(entityPointed, document.getElementById(entityPointed.id))

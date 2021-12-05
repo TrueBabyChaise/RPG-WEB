@@ -18,6 +18,7 @@ class Sprite {
 		this._speedAnimation = speedAnimation
 		this._canvasContext = canvasContext
 		this._clock = 0
+		this._z = 0
 	}
 	
 	get maxframeX () {
@@ -66,6 +67,14 @@ class Sprite {
 
 	set frameY(value) {
 		this._frameY = value
+	}
+
+	get z () {
+		return this._z
+	}
+
+	set z(value) {
+		this._z= value
 	}
 
 	draw(x, y) {

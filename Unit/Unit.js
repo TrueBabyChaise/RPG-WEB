@@ -1,5 +1,4 @@
 class Faction {
-	// Create new instances of the same class as static attributes
 	static Neutral = new Faction("neutral")
 	static Enemy = new Faction("enemy")
 	static Hero = new Faction("hero")
@@ -10,7 +9,6 @@ class Faction {
 }
 
 class Move {
-	// Create new instances of the same class as static attributes
 	static None = new Move("none")
 	static Attack = new Move("attack")
 	static Defense = new Move("defense")
@@ -20,7 +18,6 @@ class Move {
 		this.name = name
 	}
 }
-
 
 class Unit extends Entity {
 	constructor(name, sprite, x, y) {
@@ -88,8 +85,13 @@ class Unit extends Entity {
 	}
 
 	removePv(value) {
-		if (value < 0 || this.isBlocking)
+		if (value < 0)
 			return
+		if (this.isBlocking) {
+			this.isBlocking = false
+			return
+		}
+		console.log(this.name + " has lost " + value)
 		this._pv = (this._pv - value) <= 0 ? 0 : this._pv - value;
 		if (this.pv <= 0) {
 			this.startDeathAnimation()

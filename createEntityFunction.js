@@ -46,3 +46,10 @@ function createSelector(offSetX, offSetY, entity, ctx) {
 	sprite.minframeX = 5
 	return new Selector("Selector", sprite, entity, offSetX, offSetY)
 }
+
+function createBackground(ctx) {
+	const img = "assets/background/handpainted_26.png"
+	const sprite = new Sprite(img, 0, 0, canvas.width, canvas.height, 0, ctx)
+	sprite.z = -1
+	return new Background(sprite)
+}

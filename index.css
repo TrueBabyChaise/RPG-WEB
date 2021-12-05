@@ -14,21 +14,13 @@ body {
 	justify-content: space-between;
 }
 
-.floor {
-    position: absolute;
-    width: 100%;
-    height: 50%;
-    background-image: url('assets/background/handpainted_26.png');
-	background-repeat: no-repeat;
-	background-size: cover;
-
-	z-index: -1;
-}
-
 .hud {
+	position: absolute;
 	display: flex;
-	width: 100%;
-	height: 100%;
+	top: 75%;
+	left: 25%;
+	width: 50%;
+	height: 25%;
 
 	align-items: center;
 	flex-direction: row;
@@ -37,9 +29,6 @@ body {
 
 .hpList {
 	display: flex;
-
-	margin-left: 15%;
-	margin-right: 15%;
 
 	width: 100%;
 	height: 100%;
@@ -59,7 +48,10 @@ body {
 
 #popUp {
 	background-color: rgb(42, 42, 224);
+	position: absolute;
 
+	min-height: 10%;
+	white-space: pre-wrap;
 	border: 1px;
 	border-color: white;
 	border-width: medium;
