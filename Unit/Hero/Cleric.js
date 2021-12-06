@@ -10,7 +10,6 @@ class Cleric extends Unit {
 	}
 
 	specialAttack(ally) {
-		console.log(ally)
 		if (this.mana >= 25 && ally.pv < ally.maxPv) {
 			ally.addPv(25)
 			this.mana -= 25

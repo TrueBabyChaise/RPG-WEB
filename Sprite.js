@@ -3,6 +3,10 @@ class Sprite {
 		this._spritePath = spritePath
 		this._spriteImage = new Image();
 		this._spriteImage.src = this._spritePath
+		this._spriteImage.onload = () => {
+			this._width = this._spriteImage.width
+			this._height = this._spriteImage.height
+		}
 		this._maxframeX = maxframeX
 		this._maxframeY = maxframeY
 		this._minframeX = 0
@@ -83,11 +87,19 @@ class Sprite {
 		this._canvasContext.save()
 		this._canvasContext.translate(x, y)
 		this._canvasContext.scale(this._flipX ? -1 : 1, this._flipY ? -1 : 1);
-		this._canvasContext.drawImage(this._spriteImage, 
-			this._spriteWidth * this._frameX, this._spriteHeight * this._frameY, 
-			this._spriteWidth, this._spriteHeight,
-			0,0,
-			this._spriteWidth * this._scaleX, this._spriteHeight * this._scaleY)
+		if (this._spriteHeight == 0 && this._spriteWidth == 0) {
+			console.log(this._width, this._height)
+			this._canvasContext.drawImage(this._spriteImage, 0, 0, 
+				this._width, this._height, 
+				0, 0, 
+				this._width * this._scaleX, this._height * this._scaleY)
+		} else {
+			this._canvasContext.drawImage(this._spriteImage, 
+				this._spriteWidth * this._frameX, this._spriteHeight * this._frameY, 
+				this._spriteWidth, this._spriteHeight,
+				0,0,
+				this._spriteWidth * this._scaleX, this._spriteHeight * this._scaleY)
+		}
 		this._canvasContext.restore()
 	}
 

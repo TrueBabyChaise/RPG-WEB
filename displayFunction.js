@@ -9,8 +9,17 @@ window.addEventListener('resize', function(){
 			continue
 		e._pos.y = Math.round((e._pos.y * window.innerHeight) / canvas.height)
 		e._pos.x = Math.round((e._pos.x * window.innerWidth) / canvas.width)
-		console.log(e._pos)
 	}
+
+
+	notUnitList = Game.getEntitiesWithoutInstance(Unit)
+
+	for (let i = 0; i < notUnitList.length; i++) {
+		const e = notUnitList[i]
+		e._pos.y = Math.round((e._pos.y * window.innerHeight) / canvas.height)
+		e._pos.x = Math.round((e._pos.x * window.innerWidth) / canvas.width)
+	}
+
 	canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
 })

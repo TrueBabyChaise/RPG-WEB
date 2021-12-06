@@ -49,7 +49,7 @@ function createSelector(offSetX, offSetY, entity, ctx) {
 
 function createBackground(ctx) {
 	const img = "assets/background/handpainted_26.png"
-	const sprite = new Sprite(img, 0, 0, canvas.width, canvas.height, 0, ctx)
+	const sprite = new Sprite(img, 0, 0, 0, 0, 0, ctx)
 	sprite.z = -1
 	return new Background(sprite)
 }

@@ -11,6 +11,9 @@ ctx.imageSmoothingEnabled = false;
 function enemyTurn() {
 	let tmp = Game.getAllFactionMember(Faction.Hero)
 	let enemy = Game.getFactionMemberWhoCanPlay(Faction.Enemy)
+
+	if (!tmp || !enemy)
+		return
 	let target = tmp[getRandomInt(tmp.length)]
 	target.removePv(enemy.strength)
 	enemy.startAttackAnimation()
@@ -28,6 +31,14 @@ function resetTurn() {
 	});
 }
 
+function launchDeathScreen() {
+	console.log("Death Screen !")
+}
+
+function launchWinScreen() {
+	console.log("Win Screen !")
+}
+
 function gameLoop() {
 
 	ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -42,8 +53,14 @@ function gameLoop() {
 	if (!Game.getFactionMemberWhoCanPlay(Faction.Hero) && !Game.getFactionMemberWhoCanPlay(Faction.Enemy))
 		resetTurn()
 
+	if (!Game.getEntityWithFaction(Faction.Hero))
+		launchDeathScreen()
+
+	if (!Game.getEntityWithFaction(Faction.Enemy))
+		launchWinScreen()
+	
 	let selector = Game.getSelector()
-	if (selector.entityPointed.isDead)
+	if (selector && Game.getEntityWithFaction(Faction.Enemy) && selector.entityPointed.isDead)
 		selector.entityPointed = Game.getEntityWithFaction(Faction.Enemy)
 }
 
@@ -58,10 +75,10 @@ window.onload = () => {
 	Game.addEntity(createRogue(canvas.width * 0.1, canvas.height * 0.55, ctx))
 
 	Game.addEntity(createDragon(canvas.width * 0.9, canvas.height * 0.25, ctx))
+	Game.addEntity(createSelector(-8, -8, Game.entities[Game.entities.length - 1], ctx))
 	Game.addEntity(createRat(canvas.width * 0.9, canvas.height * 0.375, ctx))
 	Game.addEntity(createKobold(canvas.width * 0.9, canvas.height * 0.50, ctx))
 
-	Game.addEntity(createSelector(-8, -8, Game.entities[Game.entities.length - 3], ctx))
 	Game.addEntity(createBackground(ctx))
 
 	let hpListHero = document.getElementById("hpListHero")

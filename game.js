@@ -64,7 +64,14 @@ class Game {
 		return Game.entities.find(e => e instanceof Selector)
 	}
 
+	static getEntitiesWithInstance(instance) {
+		return Game.entities.filter(e => e instanceof instance)
+	}
 
+	static getEntitiesWithoutInstance(instance) {
+		return Game.entities.filter(e => !(e instanceof instance))
+	}
+	
 	static getActionEntityId() {
 		return (document.querySelector("#actionList p").id)
 	}

@@ -11,7 +11,7 @@ class Selector extends Entity {
 	}
 
 	logLine() {
-		console.log("Selector pointing to ", this._entityPointed.name);
+		console.log("Selector pointing to", this._entityPointed.name);
 	}
 
 	draw() {
