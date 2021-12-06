@@ -45,8 +45,15 @@ body {
 	flex-grow: 1;
 }
 
+#logChat {
+	position: absolute;
+	left: 25%;
+	width: 50%;
+	top: 2%;
+	max-height: 15%;
+}
 
-#popUp {
+.infoGame {
 	background-color: rgb(42, 42, 224);
 	position: absolute;
 

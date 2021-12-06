@@ -1,6 +1,7 @@
 document.getElementById("actionList").style.display = "none"
 actionListDiv = document.getElementById("actionList")
 const popUp = document.getElementById('popUp')
+const logChat = document.getElementById('logChat')
 
 window.addEventListener('resize', function(){
 	for (let i = 0; i < Game.entities.length; i++) {
@@ -23,7 +24,6 @@ window.addEventListener('resize', function(){
 	canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
 })
-
 
 canvas.addEventListener('mouseleave', function(e) {
 	popUp.style.display = "none"
@@ -74,7 +74,6 @@ canvas.addEventListener('mousemove', function(e) {
 		popUp.style.display = null
 		popUp.style.left = pos.x.toString() + "px"
 		popUp.style.top = pos.y.toString() + "px"
-		
 		popUp.textContent = enemy.name + "\n" + "Hp: " + enemy.pv.toString() + "/" + enemy.maxPv.toString() + "\n" + "Mana: " + enemy.mana.toString() + "/" + enemy.maxMana.toString()
 	}
 
@@ -106,4 +105,23 @@ function createPnameHpForEntity(entity, fnc, p=undefined) {
 	p.textContent = '(' + entity.constructor.name + ') ' + entity.name + ": Hp : " + entity.pv + "/" + entity.maxPv + "  Mana : " + entity.mana + "/" + entity.maxMana
 	p.onclick = fnc 
 	return p
+}
+
+function showLastLog() {
+	let logs = Game.getAllLogsWithTurn(Game.turn)
+	let log = logs[logs.length - 1]
+	if (!log) {
+		logChat.style.display = "none"
+		return
+	}
+	
+	log.countDown--
+	if (log.countDown <= 0)
+		log.hasBeenShown = true
+	logChat.style.display = null
+	logChat.textContent = log.textContent
+}
+
+function showLogTurn(turn) {
+	logs = Game.getAllLogsWithTurn(turn)
 }

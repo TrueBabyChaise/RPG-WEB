@@ -8,6 +8,8 @@ ctx.webkitImageSmoothingEnabled = false;
 ctx.mozImageSmoothingEnabled = false;
 ctx.imageSmoothingEnabled = false;
 
+let timerEnemyTurn = 0
+
 function enemyTurn() {
 	let tmp = Game.getAllFactionMember(Faction.Hero)
 	let enemy = Game.getFactionMemberWhoCanPlay(Faction.Enemy)
@@ -15,10 +17,13 @@ function enemyTurn() {
 	if (!tmp || !enemy)
 		return
 	let target = tmp[getRandomInt(tmp.length)]
-	target.removePv(enemy.strength)
+	let lastPv = target.pv
+	target.removePv(enemy.strength)	
 	enemy.startAttackAnimation()
 	enemy.hasPlay = true
+	Game.addLog(enemy.name + " has infliged " + Math.abs(target.pv - lastPv) + " to " + target.name, Game.turn, enemy.id)
 	updateP(target, document.getElementById(target.id))
+	timerEnemyTurn = 50
 }
 
 function resetTurn() {
@@ -29,6 +34,9 @@ function resetTurn() {
 	Game.entities.forEach(entity => {
 		entity.hasPlay = false
 	});
+
+	Game.turn++
+	Log.idForTurn = 0
 }
 
 function launchDeathScreen() {
@@ -39,6 +47,7 @@ function launchWinScreen() {
 	console.log("Win Screen !")
 }
 
+
 function gameLoop() {
 
 	ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -47,17 +56,20 @@ function gameLoop() {
 	
 	Game.removedDeadEntities()
 
-	if (!Game.getFactionMemberWhoCanPlay(Faction.Hero))
+	if (!Game.getFactionMemberWhoCanPlay(Faction.Hero) && timerEnemyTurn <= 0)
 		enemyTurn()
+	else if (timerEnemyTurn > 0)
+		timerEnemyTurn--
 
-	if (!Game.getFactionMemberWhoCanPlay(Faction.Hero) && !Game.getFactionMemberWhoCanPlay(Faction.Enemy))
+	if (!Game.getFactionMemberWhoCanPlay(Faction.Hero) && !Game.getFactionMemberWhoCanPlay(Faction.Enemy) && timerEnemyTurn <= 0)
 		resetTurn()
-
 	if (!Game.getEntityWithFaction(Faction.Hero))
 		launchDeathScreen()
 
 	if (!Game.getEntityWithFaction(Faction.Enemy))
 		launchWinScreen()
+
+	showLastLog()
 	
 	let selector = Game.getSelector()
 	if (selector && Game.getEntityWithFaction(Faction.Enemy) && selector.entityPointed.isDead)

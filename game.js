@@ -1,7 +1,39 @@
+class Log {
+
+	static idForTurn = 0
+
+	constructor(textContent, turn, logIssuerId) {
+		this.textContent = textContent
+		this.turn = turn
+		this.logIssuerId = logIssuerId
+		this.idForTurn = Log.idForTurn++
+		this.hasBeenShown = false
+		this.countDown = 50
+	}
+}
+
+
 class Game {
 
 	static entities = new Array()
+	static logs = new Array()
+	static turn = 0
 
+	static addLog(textContent, turn, logIssuer) {
+		Game.logs.push(new Log(textContent, turn, logIssuer))
+	}
+
+	static getAllLogsWithTurn(turn) {
+		return Game.logs.filter(e => e.turn == turn && !e.hasBeenShown)
+	}
+
+	static getLogWithId(id) {
+		return Game.logs.find(e => e.id == id && !e.hasBeenShown)
+	}
+
+	static getAllLogsWithLogIssuer(logIssuer) {
+		return Game.logs.filter(e => e.logIssuer == logIssuer && !e.hasBeenShown)
+	}
 
 	static addEntity(entity) {
 		Game.entities.push(entity)
