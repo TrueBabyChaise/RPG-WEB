@@ -18,6 +18,7 @@ class Game {
 	static entities = new Array()
 	static logs = new Array()
 	static turn = 0
+	static isRunning = true
 
 	static addLog(textContent, turn, logIssuer) {
 		Game.logs.push(new Log(textContent, turn, logIssuer))
@@ -41,7 +42,7 @@ class Game {
 	}
 
 	static removeEntityById(id) {
-		Game.entities = Game.entities.filter(e => e.faction != id)
+		Game.entities = Game.entities.filter(e => e.id != id)
 	}
 
 	static removeEntitiesByFaction(faction) {

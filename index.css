@@ -18,9 +18,11 @@ body {
 	position: absolute;
 	display: flex;
 	top: 75%;
-	left: 25%;
-	width: 50%;
+	left: 15%;
+	width: 70%;
 	height: 25%;
+
+	min-width: 700px;
 
 	align-items: center;
 	flex-direction: row;

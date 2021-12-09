@@ -40,11 +40,27 @@ function resetTurn() {
 }
 
 function launchDeathScreen() {
-	console.log("Death Screen !")
+	if (Game.getSelector())
+		Game.removeEntityById(Game.getSelector().id)
+	enemies = Game.getAllFactionMember(Faction.Enemy)
+	for (let i = 0; i < enemies.length; i++) {
+		enemies[i]._pos.x = canvas.width * (0.25 + 0.25 * (i))
+		enemies[i]._pos.y = canvas.height * 0.55 
+	}
+	document.getElementsByClassName("hud")[0].style.display = 'none'
+	Game.isRunning = false
 }
 
 function launchWinScreen() {
-	console.log("Win Screen !")
+	if (Game.getSelector())
+		Game.removeEntityById(Game.getSelector().id)
+	heroes = Game.getAllFactionMember(Faction.Hero)
+	for (let i = 0; i < heroes.length; i++) {
+		heroes[i]._pos.x = canvas.width * (0.15 + 0.20 * (i))
+		heroes[i]._pos.y = canvas.height * 0.55 
+	}
+	document.getElementsByClassName("hud")[0].style.display = 'none'
+	Game.isRunning = false
 }
 
 

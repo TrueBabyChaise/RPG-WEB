@@ -3,6 +3,8 @@ specialAttackButton = document.getElementById('specialAttackButton')
 defenseButton = document.getElementById('defenseButton')
 
 attackButton.onclick = function() {
+	if (!Game.isRunning)
+		return
 	let entity = Game.getEntityWithId(document.querySelector('#actionList p').id)
 	if (entity.lastMove == Move.Attack)
 		return
@@ -20,6 +22,8 @@ attackButton.onclick = function() {
 }
 
 defenseButton.onclick = function() {
+	if (!Game.isRunning)
+		return
 	let entity = Game.getEntityWithId(document.querySelector('#actionList p').id)
 	if (entity.lastMove == Move.Defense)
 		return
@@ -32,6 +36,8 @@ defenseButton.onclick = function() {
 }
 
 specialAttackButton.onclick = function() {
+	if (!Game.isRunning)
+		return
 	let entity = Game.getEntityWithId(document.querySelector('#actionList p').id)
 	if (entity.lastMove == Move.SpecialAttack)
 		return
